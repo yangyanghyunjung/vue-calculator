@@ -56,28 +56,46 @@ export default {
       this.keyPad = '';
     },
     // =결과 > axios
-    result() {
-      // const reqURL = this.$getDomain() + this._calculateApiUrl; // main.js에 this._calculateApiUrl 등록 
-       try {
+    /*eslint no-debugger: "error"*/
+    // result() {
+    //   const reqURL = "https://localhost:7028/test";
+    //   // const reqURL = this.$getDomain() + this._calculateApiUrl; // main.js에 this._calculateApiUrl 등록 
+      
+    //    try {
+    //     axios
+    //       .post(reqURL, {
+    //         value: this.keyPad,
+    //         headers: {
+    //         'X-Auth-Token': 'abc123' // Replace with your custom header
+    //         }
+    //     }, )
+    //       .then((response) => {
+    //         this.keyPad = response.data; // .data 같은거 붙어야 하는지 확인
+    //       })
+    //       .catch((e) => {
+    //         console.log(e);
+    //       });
+    //   } catch (ex) {
+    //     console.log(ex);
+    //   }
+    // },
 
-        axios
-          .post(reqURL, {
-            wdidx: this.keyPad,
-        }, { headers })
-          .then((response) => {
-            this.keyPad = response; // .data 같은거 붙어야 하는지 확인
-            this.$showMessagesEX("success", "", );
-            setTimeout(() => this.$router.go(0), 1000);
+    result () {
+      const reqURL = `https://localhost:7028/test?value=${this.keyPad}`;
+      try {
+         axios
+          .get(reqURL, {
+            // headers: {
+            //   "Authorization": this.$getToken(),
+            //   "UID": email
+            // }
           })
-          .catch((e) => {
-            console.log(e);
-            this.$showMessagesEX("warn", "", "");
-          });
-      } catch (ex) {
-        console.log(ex);
-        this.$showMessagesEX("warn", "", "");
-      }
-    }
+          .then(res => { 
+            this.keyPad = res.data;
+           })
+          .catch(err => { console.log(err); });
+      } catch(ex) { console.log(ex); }
+    },
   }
 }
 </script>
