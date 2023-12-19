@@ -81,6 +81,9 @@ export default {
     // },
 
     result () {
+    if (this.keyPad.indexOf('+')) {
+      this.keyPad = this.keyPad.replace('+','%2B');
+    }
       const reqURL = `https://localhost:7028/test?value=${this.keyPad}`;
       try {
          axios
